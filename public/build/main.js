@@ -61,10 +61,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ListMasterPage = (function () {
     function ListMasterPage(navCtrl, items, modalCtrl) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.items = items;
         this.modalCtrl = modalCtrl;
-        this.currentItems = this.items.query();
+        this.items.query().subscribe(function (items) {
+            _this.currentItems = items;
+            console.log("Loading current Items", _this.currentItems);
+        });
     }
     /**
      * The view loaded, let's query our items for the list
@@ -103,11 +107,12 @@ var ListMasterPage = (function () {
 }());
 ListMasterPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-list-master',template:/*ion-inline-start:"/Users/brainycouch/Projects/barhop/mobile-app/src/pages/list-master/list-master.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{ \'LIST_MASTER_TITLE\' | translate }}</ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="addItem()">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-list>\n    <ion-item-sliding *ngFor="let item of currentItems">\n      <button ion-item (click)="openItem(item)">\n        <ion-avatar item-start>\n          <img [src]="item.profilePic" />\n        </ion-avatar>\n        <h2>{{item.name}}</h2>\n        <p>{{item.about}}</p>\n        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>\n      </button>\n\n      <ion-item-options>\n        <button ion-button color="danger" (click)="deleteItem(item)">\n          {{ \'DELETE_BUTTON\' | translate }}\n        </button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/brainycouch/Projects/barhop/mobile-app/src/pages/list-master/list-master.html"*/
+        selector: 'page-list-master',template:/*ion-inline-start:"/Users/brainycouch/Projects/barhop/mobile-app/src/pages/list-master/list-master.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{ \'LIST_MASTER_TITLE\' | translate }}</ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="addItem()">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-list>\n    <ion-item-sliding *ngFor="let item of currentItems">\n      <button ion-item (click)="openItem(item)">\n        <ion-avatar item-start>\n          <!--<img [src]="item.profilePic" />-->\n        </ion-avatar>\n        <h2>{{item.fname}}</h2>\n        <p>{{item.fname + \' \' + item.lname}}</p>\n        <!--<ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>-->\n      </button>\n\n      <ion-item-options>\n        <button ion-button color="danger" (click)="deleteItem(item)">\n          {{ \'DELETE_BUTTON\' | translate }}\n        </button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/brainycouch/Projects/barhop/mobile-app/src/pages/list-master/list-master.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__providers_providers__["a" /* Items */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__providers_providers__["a" /* Items */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_providers__["a" /* Items */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */]) === "function" && _c || Object])
 ], ListMasterPage);
 
+var _a, _b, _c;
 //# sourceMappingURL=list-master.js.map
 
 /***/ }),
@@ -177,7 +182,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var Api = (function () {
     function Api(http) {
         this.http = http;
-        this.url = 'https://example.com/api/v1';
+        this.url = 'http' + (window.location.hostname == 'localhost' ? '' : 's') + '://' + window.location.host;
     }
     Api.prototype.get = function (endpoint, params, options) {
         if (!options) {
@@ -211,9 +216,10 @@ var Api = (function () {
 }());
 Api = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
 ], Api);
 
+var _a;
 //# sourceMappingURL=api.js.map
 
 /***/ }),
@@ -569,7 +575,7 @@ var TutorialPage = (function () {
             console.log('Loaded values', values);
             _this.slides = [
                 {
-                    title: values.TUTORIAL_SLIDE1_TITLE + "SLIDE 1!!!!",
+                    title: values.TUTORIAL_SLIDE1_TITLE,
                     description: values.TUTORIAL_SLIDE1_DESCRIPTION,
                     image: 'assets/img/ica-slidebox-img-1.png',
                 },
@@ -609,10 +615,9 @@ TutorialPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-tutorial',template:/*ion-inline-start:"/Users/brainycouch/Projects/barhop/mobile-app/src/pages/tutorial/tutorial.html"*/'<ion-header no-shadow>\n  <ion-navbar>\n    <ion-buttons end *ngIf="showSkip">\n      <button ion-button (click)="startApp()" color="primary">{{ \'TUTORIAL_SKIP_BUTTON\' | translate}}</button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-bounce>\n  <ion-slides pager="true" (ionSlideWillChange)="onSlideChangeStart($event)">\n    <ion-slide *ngFor="let slide of slides">\n      <img [src]="slide.image" class="slide-image" />\n      <h2 class="slide-title" [innerHTML]="slide.title"></h2>\n      <p [innerHTML]="slide.description"></p>\n    </ion-slide>\n    <ion-slide>\n      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />\n      <h2 class="slide-title">{{ \'TUTORIAL_SLIDE4_TITLE\' | translate }}</h2>\n      <button ion-button icon-end large clear (click)="startApp()">\n        {{ \'TUTORIAL_CONTINUE_BUTTON\' | translate }}\n        <ion-icon name="arrow-forward"></ion-icon>\n      </button>\n    </ion-slide>\n  </ion-slides>\n</ion-content>\n'/*ion-inline-end:"/Users/brainycouch/Projects/barhop/mobile-app/src/pages/tutorial/tutorial.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]])
 ], TutorialPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=tutorial.js.map
 
 /***/ }),
@@ -868,111 +873,6 @@ ItemCreatePage = __decorate([
 
 /***/ }),
 
-/***/ 223:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Items; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_item__ = __webpack_require__(299);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var Items = (function () {
-    function Items(http) {
-        this.http = http;
-        this.items = [];
-        this.defaultItem = {
-            "name": "Burt Bear",
-            "profilePic": "assets/img/speakers/bear.jpg",
-            "about": "Burt is a Bear.",
-        };
-        var items = [
-            {
-                "name": "Burt Bear",
-                "profilePic": "assets/img/speakers/bear.jpg",
-                "about": "Burt is a Bear."
-            },
-            {
-                "name": "Charlie Cheetah",
-                "profilePic": "assets/img/speakers/cheetah.jpg",
-                "about": "Charlie is a Cheetah."
-            },
-            {
-                "name": "Donald Duck",
-                "profilePic": "assets/img/speakers/duck.jpg",
-                "about": "Donald is a Duck."
-            },
-            {
-                "name": "Eva Eagle",
-                "profilePic": "assets/img/speakers/eagle.jpg",
-                "about": "Eva is an Eagle."
-            },
-            {
-                "name": "Ellie Elephant",
-                "profilePic": "assets/img/speakers/elephant.jpg",
-                "about": "Ellie is an Elephant."
-            },
-            {
-                "name": "Molly Mouse",
-                "profilePic": "assets/img/speakers/mouse.jpg",
-                "about": "Molly is a Mouse."
-            },
-            {
-                "name": "Paul Puppy",
-                "profilePic": "assets/img/speakers/puppy.jpg",
-                "about": "Paul is a Puppy."
-            }
-        ];
-        for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
-            var item = items_1[_i];
-            this.items.push(new __WEBPACK_IMPORTED_MODULE_2__models_item__["a" /* Item */](item));
-        }
-    }
-    Items.prototype.query = function (params) {
-        if (!params) {
-            return this.items;
-        }
-        return this.items.filter(function (item) {
-            for (var key in params) {
-                var field = item[key];
-                if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
-                    return item;
-                }
-                else if (field == params[key]) {
-                    return item;
-                }
-            }
-            return null;
-        });
-    };
-    Items.prototype.add = function (item) {
-        this.items.push(item);
-    };
-    Items.prototype.delete = function (item) {
-        this.items.splice(this.items.indexOf(item), 1);
-    };
-    return Items;
-}());
-Items = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
-], Items);
-
-//# sourceMappingURL=items.js.map
-
-/***/ }),
-
 /***/ 227:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1182,7 +1082,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_tutorial_tutorial__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_welcome_welcome__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__providers_api__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__mocks_providers_items__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_items__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_settings__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_user__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_camera__ = __webpack_require__(222);
@@ -1303,7 +1203,7 @@ AppModule = __decorate([
         ],
         providers: [
             __WEBPACK_IMPORTED_MODULE_20__providers_api__["a" /* Api */],
-            __WEBPACK_IMPORTED_MODULE_21__mocks_providers_items__["a" /* Items */],
+            __WEBPACK_IMPORTED_MODULE_21__providers_items__["a" /* Items */],
             __WEBPACK_IMPORTED_MODULE_23__providers_user__["a" /* User */],
             __WEBPACK_IMPORTED_MODULE_24__ionic_native_camera__["a" /* Camera */],
             __WEBPACK_IMPORTED_MODULE_25__ionic_native_google_maps__["a" /* GoogleMaps */],
@@ -1441,32 +1341,51 @@ MyApp = __decorate([
 
 /***/ }),
 
-/***/ 299:
+/***/ 311:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Item; });
-/**
- * A generic model that our Master-Detail pages list, create, and delete.
- *
- * Change "Item" to the noun your app will use. For example, a "Contact," or a
- * "Customer," or a "Animal," or something like that.
- *
- * The Items service manages creating instances of Item, so go ahead and rename
- * that something that fits your app as well.
- */
-var Item = (function () {
-    function Item(fields) {
-        this.fields = fields;
-        // Quick and dirty extend/assign fields to this model
-        for (var f in fields) {
-            this[f] = fields[f];
-        }
-    }
-    return Item;
-}());
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Items; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api__ = __webpack_require__(114);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
-//# sourceMappingURL=item.js.map
+
+
+
+var Items = (function () {
+    function Items(http, api) {
+        this.http = http;
+        this.api = api;
+    }
+    Items.prototype.query = function (params) {
+        return this.api.get('users', params)
+            .map(function (resp) { return resp.json(); });
+    };
+    Items.prototype.add = function (item) {
+    };
+    Items.prototype.delete = function (item) {
+    };
+    return Items;
+}());
+Items = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__api__["a" /* Api */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__api__["a" /* Api */]) === "function" && _b || Object])
+], Items);
+
+var _a, _b;
+//# sourceMappingURL=items.js.map
 
 /***/ }),
 
@@ -1509,11 +1428,11 @@ var Tab3Root = __WEBPACK_IMPORTED_MODULE_2__settings_settings__["a" /* SettingsP
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mocks_providers_items__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__items__ = __webpack_require__(311);
 /* unused harmony reexport User */
 /* unused harmony reexport Api */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__settings__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__mocks_providers_items__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__items__["a"]; });
 
 
 
