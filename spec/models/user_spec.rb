@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe User, type: :model do
   # Check relationship with `user_attrs`
   it { should have_many(:user_attrs).dependent(:destroy) }
@@ -7,5 +6,5 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:fname) }
   it { should validate_presence_of(:lname) }
   it { should validate_presence_of(:email) }
-
+  it { should validate_presence_of(:password_digest) }
 end

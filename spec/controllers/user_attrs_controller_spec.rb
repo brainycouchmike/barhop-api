@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe UserAttrsController, type: :controller do
+module Api::V1
+  RSpec.describe UserAttrsController, type: :controller do
 
+  end
 end

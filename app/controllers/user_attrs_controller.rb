@@ -1,2 +1,0 @@
-class UserAttrsController < ApplicationController
-end
