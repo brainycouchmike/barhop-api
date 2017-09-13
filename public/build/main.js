@@ -1682,12 +1682,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Api is a generic REST Api handler. Set your API url first.
  */
 var Api = (function () {
+    // url: string = 'https://barhop-rails-api.herokuapp.com/api/';
     function Api(http, injector, settings) {
         this.http = http;
         this.injector = injector;
         this.settings = settings;
-        // url: string = 'http'+(window.location.hostname=='localhost'?'':'s')+'://'+window.location.host+'/api/';
-        this.url = 'https://barhop-rails-api.herokuapp.com/api/';
+        this.url = 'http' + (window.location.hostname == 'localhost' ? '' : 's') + '://' + window.location.host + '/api/';
     }
     Object.defineProperty(Api.prototype, "user", {
         get: function () {
