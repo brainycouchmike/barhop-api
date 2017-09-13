@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins %w([localhost barhop-rails-api.herokuapp.com])
+    origins %w([localhost:5000 barhop-rails-api.herokuapp.com])
 
     resource '*',
              headers: :any,

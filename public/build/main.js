@@ -1683,13 +1683,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var Api = (function () {
     function Api(http, injector, settings) {
-        var _this = this;
         this.http = http;
         this.injector = injector;
         this.settings = settings;
-        this.settings.getValue('api_base').then(function (url) {
-            _this.url = url;
-        });
+        // url: string = 'http'+(window.location.hostname=='localhost'?'':'s')+'://'+window.location.host+'/api/';
+        this.url = 'https://barhop-rails-api.herokuapp.com/api/';
     }
     Object.defineProperty(Api.prototype, "user", {
         get: function () {
