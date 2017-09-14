@@ -1,7 +1,7 @@
 module Api
   module V1
     module Auth
-      class UsersController < ApplicationController
+      class UsersController < Api::ApplicationController
         before_action :set_user, only: %i[show update destroy]
         # skip authorization for create user
         skip_before_action :authorize_request, only: :create
