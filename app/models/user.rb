@@ -9,3 +9,4 @@ class User < ApplicationRecord
   # Validations
   validates_presence_of :fname, :lname, :email, :password_digest
 end
+
